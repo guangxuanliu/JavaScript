@@ -117,5 +117,5 @@ setTimeout(function(){
     //window.location = "http://www.warenwang.com";
     //window.location.pathname = "/JavaScript高级程序设计/Chapter07/index.html";
     //location.replace("http://www.warenwang.com");
-    location.reload(true);
+    //location.reload(true);
 },2000);
