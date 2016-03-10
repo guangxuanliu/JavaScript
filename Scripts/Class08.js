@@ -119,3 +119,37 @@ setTimeout(function(){
     //location.replace("http://www.warenwang.com");
     //location.reload(true);
 },2000);
+
+/*
+* 8.3 navigator对象
+*/
+console.log(navigator);
+function hasPlugin(name){
+    name = name.toLowerCase();
+    for(var i = 0;i < navigator.plugins.length;i++){
+        if(navigator.plugins[i].name.toLowerCase().indexOf(name) > -1){
+            return true;
+        }
+    }
+    return false;
+}
+console.log(hasPlugin("Flash"));
+console.log(hasPlugin("IE"));
+console.log(hasPlugin("fuck"));
+console.log(hasPlugin("QuickTime"));
+console.log(hasPlugin("pdf"));
+
+/*
+* 8.4 screen对象
+*/
+console.log(screen);
+console.log(screen.width + " * " + screen.height);
+console.log(screen.availWidth + " * " + screen.availHeight);
+//var local = window.open("http://localhost:63342/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/Chapter07/index.html","_blank");
+//setTimeout(function(){
+//    local.resizeTo(screen.availWidth,screen.availHeight);
+//},1000);
+
+/*
+* 8.5 history对象
+*/
