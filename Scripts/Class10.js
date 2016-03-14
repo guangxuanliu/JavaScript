@@ -135,3 +135,121 @@ console.log(allElements);
 //6.文档写入
 //write()、writeln()、open()、close()
 console.log(new Date());
+
+/*
+* 10.1.3 Element类型
+*/
+line();
+console.info("Element类型");
+console.log(title);
+console.log(title.nodeType);
+console.log(title.nodeName);
+console.log(title.tagName);
+console.log(title.nodeValue);
+console.log(title.nodeName == title.tagName);
+
+//1.HTML元素
+console.log(title.id);
+console.log(title.className);
+console.log(title.lang);
+console.log(document.documentElement.lang);
+title.dir = "rtl";
+title.title = "这里是title，只有在鼠标悬浮上的时候才能显示出来";
+
+//2.取得特性
+var div = document.getElementById("myDiv");
+console.log(div.getAttribute("id"));
+console.log(div.getAttribute("class"));
+console.log(div.getAttribute("title"));
+console.log(div.getAttribute("lang"));
+console.log(div.getAttribute("dir"));
+console.log(div.getAttribute("data-mySpecial"));
+console.log(div.style);
+console.log(div.getAttribute("style"));
+console.log(div.onclick);
+console.log(div.getAttribute("onclick"));
+
+//2.设置特性
+div.setAttribute("style","text-align:right");
+div.style = "text-align:center";
+
+//4.attributes
+console.log(div.attributes);
+console.log(div.attributes.getNamedItem("id").nodeValue);
+console.log(div.attributes["id"].nodeValue);
+function outputAttributes(element){
+    var arr = new Array(),
+        name,
+        value;
+    for(var i = 0, len = element.attributes.length;i < len;i++){
+        name = element.attributes[i].nodeName;
+        value = element.attributes[i].nodeValue;
+        if(element.attributes[i].specified){
+            arr.push(name + "=\"" + value + "\"");
+        }
+    }
+    return arr.join(" ");
+}
+console.log(outputAttributes(div));
+
+//5.创建元素
+var div2 = document.createElement("div");
+div2.id = "myNewDiv";
+div2.className = "box";
+div2.innerHTML = "这是动态创建的div";
+div2.setAttribute("dir","rtl");
+document.body.appendChild(div2);
+
+//6.元素的子节点
+var element = document.getElementById("myList").childNodes;
+for(var i = 0,len= element.length;i < len;i++){
+    if(element[i].nodeType == 1){
+        console.log(element[i]);
+    }
+}
+
+/*
+* 10.1.4 Text类型
+*/
+line();
+console.info("10.1.4 Text类型");
+var textNode = document.getElementById("myDiv").firstChild;
+console.log(textNode.nodeType);
+console.log(textNode.nodeName);
+console.log(textNode.nodeValue);
+console.log(textNode.parentNode);
+console.log(textNode.data);
+textNode.appendData("这是后来添加的内容");
+textNode.deleteData(10,3);
+textNode.insertData(10,"嘻嘻嘿嘿");
+textNode.replaceData(10,4,"fuck you!");
+var text1 = textNode.splitText(10);
+console.log(text1);
+var text2 = textNode.substringData(7,5);
+console.log(text2);
+console.log(textNode.length);
+document.getElementById("myDiv").firstChild.nodeValue = "这是新修改的内容";
+
+var element = document.createElement("div");
+element.className = "message";
+var textNode = document.createTextNode("Hello World!");
+element.appendChild(textNode);
+document.body.appendChild(element);
+var textNode2 = document.createTextNode("Hello JavaScript!");
+element.appendChild(textNode2);
+console.log(element.childNodes.length);
+console.log(element.childNodes[1]);
+element.normalize();
+console.log(element.childNodes.length);
+
+/*
+* 10.1.5 Comment 类型
+*/
+line();
+console.info("10.1.5 Comment 类型");
+var myComment = document.getElementById("myComment");
+console.log(myComment.childNodes);
+console.log(myComment.firstChild.data);
+console.log(myComment.firstChild.nodeValue);
+console.log(myComment.firstChild.nodeType);
+console.log(myComment.firstChild.nodeName);
