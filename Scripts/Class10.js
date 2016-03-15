@@ -253,3 +253,138 @@ console.log(myComment.firstChild.data);
 console.log(myComment.firstChild.nodeValue);
 console.log(myComment.firstChild.nodeType);
 console.log(myComment.firstChild.nodeName);
+
+/*
+* 10.1.7 DocumentType类型
+*/
+
+console.log(document.doctype);
+console.log(document.doctype.nodeType);
+console.log(document.doctype.nodeName);
+console.log(document.doctype.nodeValue);
+console.log(document.doctype.name);
+
+/*
+* 10.1.8 DocumentFragment类型
+*/
+
+var fragment = document.createDocumentFragment();
+console.log(fragment.nodeType);
+console.log(fragment.nodeName);
+console.log(fragment.nodeValue);
+var ul = document.getElementById("myList");
+var li = null;
+for(var i = 0;i < 3;i++){
+    li = document.createElement("li");
+    li.appendChild(document.createTextNode("Item " + i));
+    fragment.appendChild(li);
+}
+ul.appendChild(fragment);
+
+/*
+* 10.1.9 Attr类型
+*/
+
+var attr = document.createAttribute("text-align");
+console.log(attr.nodeType);
+console.log(attr.nodeName);
+console.log(attr.nodeValue);
+attr.value = "center";
+console.log(attr.nodeValue);
+console.log(attr.value);
+
+/*
+* 10.2 DOM操作技术
+*/
+line();
+console.info("10.2 DOM操作技术")
+
+//10.2.1
+function loadScript(url){
+    var script = document.createElement("script");
+    script.src = url;
+    document.body.appendChild(script);
+}
+loadScript("../Scripts/Class03.js");
+function loadScriptString(code){
+    var script = document.createElement("script");
+    try{
+        script.appendChild(document.createTextNode(code));
+    }
+    catch (ex){
+        script.text = code;
+    }
+    document.body.appendChild(script);
+}
+loadScriptString("console.log('fuck!')");
+
+//10.2.2 动态样式
+
+function loadStyles(url){
+    var link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = url;
+    document.getElementsByTagName("head")[0].appendChild(link);
+}
+loadStyles("../Styles/Class10.css");
+function loadStyleString(code){
+    var style = document.createElement("style");
+    try{
+        style.appendChild(document.createTextNode(code));
+    }
+    catch (ex){
+        style.styleSheet.cssText = code;
+    }
+    document.body.appendChild(style);
+}
+loadStyleString("body{background-color:#12b4a4}");
+
+//10.2.3 操作表格
+
+var table = document.createElement("table");
+table.border = 1;
+table.width = "100%";
+var row1 = document.createElement("tr");
+table.appendChild(row1);
+var cell11 = document.createElement("td");
+row1.appendChild(cell11);
+cell11.appendChild(document.createTextNode("Cell 1.1"));
+var cell12 = document.createElement("td");
+row1.appendChild(cell12);
+cell12.appendChild(document.createTextNode("Cell 1.2"));
+
+var row2 = document.createElement("tr");
+table.appendChild(row2);
+var cell21 = document.createElement("td");
+row2.appendChild(cell21);
+cell21.appendChild(document.createTextNode("Cell 2.1"));
+var cell22 = document.createElement("td");
+row2.appendChild(cell22);
+cell22.appendChild(document.createTextNode("Cell 2.2"));
+document.body.appendChild(table);
+
+var table2 = document.createElement("table");
+table2.border = 1;
+table2.width = "100%";
+table2.insertRow(0);
+table2.rows[0].insertCell(0);
+table2.rows[0].cells[0].appendChild(document.createTextNode("Cell 1.1"));
+table2.rows[0].insertCell(1);
+table2.rows[0].cells[1].appendChild(document.createTextNode("Cell 1.2"));
+table2.insertRow(1);
+table2.rows[1].insertCell(0);
+table2.rows[1].cells[0].appendChild(document.createTextNode("Cell 2.1"));
+table2.rows[1].insertCell(1);
+table2.rows[1].cells[1].appendChild(document.createTextNode("Cell 2.2"));
+document.body.appendChild(table2);
+
+//10.2.4 使用NodeList
+
+var divs = document.getElementsByTagName("div"),
+    i,
+    len;
+for(i = 0,len = divs.length;i < len;i++){
+    div = document.createElement("div");
+    document.body.appendChild(div);
+    console.log(i);
+}
