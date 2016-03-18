@@ -52,4 +52,54 @@ var myButton = document.getElementById("myButton");
 myButton.focus();
 console.log(document.hasFocus());
 
+//readyState
+console.log(document.readyState);
+
+//compatMode
+console.log(document.compatMode);
+
+//head
+console.log(document.head);
+
+//charset
+console.log(document.charset);
+console.log(document.defaultCharset);
+
+//自定义数据类型
+var div = document.getElementById("myDiv");
+var appId = div.dataset.appid;
+var myName = div.dataset.myname;
+console.log(div);
+console.log(appId);
+console.log(myName);
+
+div.dataset.appid = 789;
+div.dataset.myname = "warenwang";
+console.log(div);
+
+// 插入标记
+//1.innerHTML 2.outerHTML 3.insertAdjacentHTML()
+var content = document.getElementById("content");
+console.log(content.innerHTML);
+content.innerHTML = "Hello World!";
+content.innerHTML = "Hello & welcome,<b>\"reader\"!</b>";
+console.log(content.innerHTML);
+content.innerHTML = "<script>alert('fuck');</script>";
+content.outerHTML = "<p id='content'>这是outerHTML试验的DIV</p>";
+var content = document.getElementById("content");
+content.insertAdjacentHTML("beforebegin","<span>beforebegin</span>");
+content.insertAdjacentHTML("afterbegin","<span>afterbegin</span>");
+content.insertAdjacentHTML("beforeend","<span>beforeend</span>");
+content.insertAdjacentHTML("afterend","<span>afterend</span>");
+
+//scrollIntoView() chrome不支持该方法
+var bottomDiv = document.getElementById("scrollInToView");
+console.log(bottomDiv);
+// bottomDiv.scrollIntoView(false);
+
+//11.4.5 滚动
+document.body.scrollByLines(5);
+
+
+
 
