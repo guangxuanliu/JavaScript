@@ -10,4 +10,7 @@
 10.charset和defaultCharset什么区别？P293
 11.HTML5 自定义属性(data-)的大写不识别 Chrome浏览器？
 12.meta标签的作用
-13.
+13.伪元素什么？(:after和:before)
+14.浏览器内部样式表？
+15.
+16.
