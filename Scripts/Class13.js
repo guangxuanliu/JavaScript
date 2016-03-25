@@ -62,3 +62,56 @@ var handler3 = function () {
 };
 EventUtil.addHandler(btn,"click",handler3);
 EventUtil.removeHandler(btn,"click",handler3);
+
+/*
+* 13.3 事件对象
+*/
+line();
+console.info("事件对象");
+btn.addEventListener("click",function (event) {
+    console.log(event.type);
+    console.log(event.currentTarget === this);
+    console.log(event.currentTarget === event.target);
+});
+// document.body.addEventListener("click",function (event) {
+//     console.log(event.type);
+//     console.log(event.currentTarget === document.body);
+//     console.log(event.target);
+// });
+var handler4 = function (event) {
+    switch (event.type){
+        case "click":
+            console.log("you clicked me!");
+            break;
+        case "mouseover":
+            event.target.style.backgroundColor = "#12b4a4";
+            break;
+        case "mouseout":
+            event.target.style.backgroundColor = "";
+            break;
+    }
+};
+btn.addEventListener("click",handler4);
+btn.addEventListener("mouseover",handler4);
+btn.addEventListener("mouseout",handler4);
+var link = document.getElementById("myLink");
+link.addEventListener("click",function (event) {
+    console.log("跳转到蛙人网的主页");
+    event.preventDefault();
+    event.stopPropagation();
+},false);
+var myBtn2 = document.getElementById("myBtn2");
+myBtn2.addEventListener("click",function (event) {
+   console.log(event.eventPhase);
+},false);
+// document.body.addEventListener("click",function (event) {
+//     console.log(event.eventPhase);
+// },true);
+// document.body.addEventListener("click",function (event) {
+//     console.log(event.eventPhase);
+// });
+var myBtn3 = document.getElementById("myBtn3");
+myBtn3.onclick = function (event) {
+    console.log(event);
+};
+
