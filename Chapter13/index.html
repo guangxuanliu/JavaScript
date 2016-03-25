@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>第13章 事件</title>
+</head>
+<body>
+第13章 事件
+<input type="button" value="Click Me" onclick="try{alert('Clicked')}catch (ex){}" />
+<input type="button" value="Click Me" onclick="try{showMessage()}catch (ex){}" />
+<form method="post">
+    <input type="text" name="username" value="" >
+    <input type="button" value="Echo Username" onclick="console.log(username.value)" >
+</form>
+<button type="button" id="myBtn">点击</button>
+<script src="../Scripts/Class13.js"></script>
+</body>
+</html>
+<script>
+    function showMessage() {
+        alert("Clicked");
+    }
+</script>

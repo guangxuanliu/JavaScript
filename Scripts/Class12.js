@@ -93,6 +93,23 @@ console.log(getElementTop(myDiv3));
 //2.客户区大小
 console.log(myDiv2.clientWidth);
 console.log(myDiv2.clientHeight);
-//3.滚动大小
-//4.确定元素大小
 
+//12.3.1 NodeIterator
+var div = document.getElementById("div1");
+var filter = function (node) {
+    return node.tagName.toLowerCase() == "li" ?  NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+}
+var iterator = document.createNodeIterator(div,NodeFilter.SHOW_ELEMENT,filter,false);
+var node = iterator.nextNode();
+while(node != null){
+    console.log(node.tagName);
+    node = iterator.nextNode();
+}
+
+//12.3.2 TreeWalker
+var walker = document.createTreeWalker(div,NodeFilter.SHOW_ELEMENT,filter,false);
+var node = walker.nextNode();
+while(node != null){
+    console.log(node.tagName);
+    node = walker.nextNode();
+}
