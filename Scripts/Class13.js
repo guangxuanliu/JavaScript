@@ -45,6 +45,20 @@ var EventUtil = {
             element["on" + type] = handler;
         }
     },
+    getEvent : function (event) {
+        return event ? event : window.event;
+    },
+    getTarget : function (event) {
+        return event.target || event.srcElement;
+    },
+    preventDefault : function (event) {
+        if(event.preventDefault){
+            event.preventDefault();
+        }
+        else {
+            event.returnValue = false;
+        }
+    },
     removeHandler :function (element, type, handler) {
         if(element.removeEventListener){
             element.removeEventListener(type,handler,false);
@@ -54,6 +68,14 @@ var EventUtil = {
         }
         else {
             element["on" + type] = null;
+        }
+    },
+    stopPropagation : function (event) {
+        if (event.stopPropagation){
+            event.stopPropagation();
+        }
+        else {
+            event.cancelBubble = true;
         }
     }
 };
@@ -111,7 +133,99 @@ myBtn2.addEventListener("click",function (event) {
 //     console.log(event.eventPhase);
 // });
 var myBtn3 = document.getElementById("myBtn3");
-myBtn3.onclick = function (event) {
-    console.log(event);
-};
+// myBtn3.onclick = function (event) {
+//     console.log(event.srcElement); //myBtn3
+//     console.log(this); // myBtn3
+// };
+// myBtn3.attachEvent("onclick",function (event) {
+//    console.log(event.srcElement); // myBtn3
+//     console.log(this); //window
+// });
 
+//IE中阻止默认行为
+var myLink2 = document.getElementById("myLink2");
+// myLink2.onclick = function (event) {
+//     console.log("IE中的链接被点击了");
+//     window.event.returnValue = false;
+// };
+
+// myLink2.attachEvent("onclick",function (event) {
+//     console.log("IE中的链接被点击了");
+//     window.event.returnValue = false;
+// });
+
+//IE中阻止事件冒泡
+// myLink2.attachEvent("onclick",function (event) {
+//     console.log("IE中的链接被点击了");
+//     event.returnValue = false;
+//     event.cancelBubble = true; //IE中阻止事件冒泡
+// });
+// document.body.attachEvent("onclick",function (event) {
+//     console.log("body被点击了");
+// });
+
+//13.3.3 跨浏览器的事件
+//已添加到EventUtil对象中
+
+/*
+* 13.4 事件类型
+*/
+line();
+console.info("事件类型");
+
+//13.4.1 UI事件
+
+//确定是否支持“DOM3级事件”
+// var isSupported = document.implementation.hasFeature("UIEvent","3.0");
+// console.log(isSupported);
+
+//1.load事件
+//页面的load事件
+// EventUtil.addHandler(window,"load",function (event) {
+//    console.log("页面已加载完毕！");
+// });
+
+//图片的load事件
+// var image = document.getElementById("myImage");
+// EventUtil.addHandler(image,"load",function (event) {
+//     var event = EventUtil.getEvent(event);
+//     console.log(decodeURIComponent(EventUtil.getTarget(event).src));
+// });
+
+//在创建img元素时指定事件处理程序要先于指定src地址
+// EventUtil.addHandler(window,"load",function (event) {
+//     var image = document.createElement("img");
+//     EventUtil.addHandler(image,"load",function (event) {
+//         event = EventUtil.getEvent(event);
+//         console.log(decodeURIComponent(EventUtil.getTarget(event).src));
+//     });
+//     document.body.appendChild(image);
+//     image.src = "../Pic/小青蛙.png";
+// });
+
+//用DOM0级的Image对象实现上述的功能
+// EventUtil.addHandler(window,"load",function (event) {
+//    var image = new Image();
+//     EventUtil.addHandler(image,"load",function (event) {
+//         event = EventUtil.getEvent(event);
+//         console.log(decodeURIComponent(EventUtil.getTarget(event).src));
+//     });
+//     document.body.appendChild(image);
+//     image.src = "../Pic/小青蛙.png";
+// });
+
+//<script>、<style>元素的load事件
+// EventUtil.addHandler(window,"load",function (event) {
+//    var style = document.createElement("link");
+//     EventUtil.addHandler(style,"load",function (event) {
+//         console.log("样式表已加载");
+//     });
+//     style.rel = "stylesheet";
+//     style.href = "../Styles/Class13.css";
+//     document.body.appendChild(style);
+// });
+
+//2.unload事件
+EventUtil.addHandler(window,"unload",function (event) {
+   alert("unloaded!");
+});
