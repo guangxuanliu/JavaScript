@@ -51,6 +51,57 @@ var EventUtil = {
     getTarget : function (event) {
         return event.target || event.srcElement;
     },
+    getRelatedTarget :function (event) {
+        if(event.relatedTarget){
+            return event.relatedTarget;
+        }  
+        else if(event.toElement){
+            return event.toElement;
+        }
+        else if(event.fromElement){
+            return event.fromElement;
+        }
+        else {
+            return null;
+        }
+    },
+    getButton : function (event) {
+        if(document.implementation.hasFeature("MouseEvents","2.0")){
+            return event.button;
+        }
+        else
+        {
+            switch (event.button){
+                case 0:
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                    return 0;
+                case 2:
+                case 6:
+                    return 2;
+                case 4:
+                    return 1;
+            }
+        }
+    },
+    getWheelDelta:function (event) {
+      if(event.wheelDelta){
+          return event.wheelDelta;
+      }
+        else {
+          return -event.detail * 40;
+      }
+    },
+    getCharCode : function (event) {
+      if(typeof event.charCode == "number"){
+          return event.charCode;
+      }
+        else {
+          return event.keyCode;
+      }
+    },
     preventDefault : function (event) {
         if(event.preventDefault){
             event.preventDefault();
@@ -226,6 +277,174 @@ console.info("事件类型");
 // });
 
 //2.unload事件
-EventUtil.addHandler(window,"unload",function (event) {
-   alert("unloaded!");
-});
+//存在兼容性问题，可以在IE下测试
+// EventUtil.addHandler(window,"unload",function (event) {
+//     alert("这是unload事件");
+// });
+
+//3.resize事件
+// EventUtil.addHandler(window,"resize",function (event) {
+//    console.log("resize事件被触发");
+// });
+
+//4.scroll事件
+// EventUtil.addHandler(window,"scroll",function (event) {
+//    if(document.documentMode == "CSS1Compat"){
+//        console.log(document.documentElement.scrollTop);
+//    }
+//     else {
+//        console.log(document.body.scrollTop);
+//    }
+// });
+
+//13.4.2焦点事件
+// var isSupported = document.implementation.hasFeature("FocusEvent","3.0");
+// console.log(isSupported);
+// EventUtil.addHandler(window,"focus",function (event) {
+//    console.log("window focus");
+// });
+// EventUtil.addHandler(window,"blur",function (event) {
+//     console.log("window blur");
+// });
+// EventUtil.addHandler(window,"focusout",function (event) {
+//     console.log("window focusout");
+// });
+// EventUtil.addHandler(window,"focusin",function (event) {
+//     console.log("window focusin");
+// });
+// EventUtil.addHandler(window,"DOMFocusOut",function (event) {
+//     console.log("window DOMFocusOut");  //貌似没有浏览器支持
+// });
+// EventUtil.addHandler(window,"DOMFocusIn",function (event) {
+//     console.log("window DOMFocusIn");   //貌似没有浏览器支持
+// });
+
+//13.4.3 鼠标与滚轮事件
+//mouseenter、mouseleave、mouseover、mouseout事件的区别
+// var divOut = document.getElementById("out");
+// var divIn = document.getElementById("in");
+// EventUtil.addHandler(divOut,"mouseenter",function (event) {
+//     console.log("Out mouseEnter");
+// });
+// EventUtil.addHandler(divOut,"mouseleave",function (event) {
+//     console.log("Out mouseleave");
+// });
+// EventUtil.addHandler(divOut,"mouseover",function (event) {
+//     console.log("Out mouseover");
+// });
+// EventUtil.addHandler(divOut,"mouseout",function (event) {
+//     console.log("Out mouseout");
+// });
+
+// EventUtil.addHandler(divIn,"mouseenter",function (event) {
+//     console.log("In mouseenter");
+// });
+// EventUtil.addHandler(divIn,"mouseleave",function (event) {
+//     console.log("In mouseleave");
+// });
+// EventUtil.addHandler(divIn,"mouseover",function (event) {
+//     console.log("In mouseover");
+// });
+// EventUtil.addHandler(divIn,"mouseout",function (event) {
+//     console.log("In mouseout");
+// });
+
+//检测是否支持鼠标事件
+//我擦，此处把feature修改为任何值都会返回true，兼容性问题真操蛋
+// var isSupportedMouseEvent = document.implementation.hasFeature("MouseEvent","3.0");
+// console.log(isSupportedMouseEvent);
+
+//客户区坐标、页面坐标、屏幕坐标
+// EventUtil.addHandler(window,"click",function (event) {
+//     console.log("客户区坐标：" + event.clientX + ", " + event.clientY);
+//     console.log("页面坐标：" + event.pageX + ", " + event.pageY);
+//     console.log("屏幕坐标：" + event.screenX + ", " + event.screenY);
+// });
+
+//4.修改键
+//windows下meta键是什么？
+// EventUtil.addHandler(window,"click",function (event) {
+//    event = EventUtil.getEvent(event);
+//     var keys = new Array();
+//     if (event.ctrlKey){
+//         keys.push("ctrl");
+//     }
+//     if (event.shiftKey){
+//         keys.push("shift");
+//     }
+//     if (event.metaKey){
+//         keys.push("meta");
+//     }
+//     if (event.altKey){
+//         keys.push("alt");
+//     }
+//     console.log(keys.join());
+// });
+
+//5.相关元素
+//只有在mouseover和mouseout事件时，relatedTarget才有值
+// var myDiv4 = document.getElementById("myDiv4");
+// EventUtil.addHandler(myDiv4,"mouseout",function (event) {
+//     var target = EventUtil.getTarget(event);
+//    var relatedTarget = EventUtil.getRelatedTarget(event);
+//     console.log("Mouse out from " + target.tagName + " to " + relatedTarget.tagName);
+// });
+
+//6.鼠标按钮
+// var myDiv4 = document.getElementById("myDiv4");
+// EventUtil.addHandler(myDiv4,"mousedown",function (event) {
+//    event = EventUtil.getEvent(event);
+//     console.log(EventUtil.getButton(event));
+// });
+
+//7.更多的事件信息
+// var myDiv4 = document.getElementById("myDiv4");
+// EventUtil.addHandler(myDiv4,"click",function (event) {
+//    var event = EventUtil.getEvent(event);
+//     console.log(event.detail);
+// });
+
+//8.鼠标滚轮事件
+// (function () {
+//     function handlerMouseWhell(event) {
+//         event = EventUtil.getEvent(event);
+//         var delta = EventUtil.getWheelDelta(event);
+//         console.log(delta);
+//     }
+//     EventUtil.addHandler(document,"mousewheel",handlerMouseWhell);
+//     EventUtil.addHandler(document,"DOMMouseScroll",handlerMouseWhell);
+// })();
+
+//9.触摸设备
+//10.无障碍性问题
+
+/*
+* 13.4.4 键盘与文本事件
+*/
+// 1.键码
+// EventUtil.addHandler(window,"keydown",function (event) {
+//    var event = EventUtil.getEvent(event);
+//     console.log(event.keyCode);
+// });
+
+//2.字符编码
+// EventUtil.addHandler(window,"keypress",function (event) {
+//     var event = EventUtil.getEvent(event);
+//     console.log(event.charCode);
+// });
+
+// EventUtil.addHandler(window,"keypress",function (event) {
+//    var event = EventUtil.getEvent(event);
+//     console.log(String.fromCharCode(EventUtil.getCharCode(event)));
+// });
+
+//3.DOM3级变化
+
+//4.textInput事件
+// var textbox = document.getElementById("myText");
+// EventUtil.addHandler(textbox,"textInput",function (event) {
+//    var event = EventUtil.getEvent(event);
+//     console.log(event.data);
+// });
+
+//5.设备中的键盘事件

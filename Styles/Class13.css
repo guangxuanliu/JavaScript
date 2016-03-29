@@ -1,4 +1,11 @@
-body{
-    background-color: purple;
-    color: #ffffff;
+#out{
+    width: 300px;;
+    height: 300px;
+    border:1px solid red;
+}
+#in{
+    width: 200px;
+    height: 200px;
+    border:1px solid purple;
+    margin: 50px;
 }
