@@ -448,3 +448,114 @@ console.info("事件类型");
 // });
 
 //5.设备中的键盘事件
+
+/*
+* 13.4.5 复合事件
+*/
+//IE9+是到2011年唯一支持复合事件的浏览器。由于缺少支持，对于需要开发跨浏览器应用的开发人员，它的用处不大。
+// var isSupportComposition = document.implementation.hasFeature("CompositionEvent","3.0");
+// console.log(isSupportComposition);
+
+/*
+* 13.4.6 变动事件
+*/
+//删除节点和插入节点一样
+// EventUtil.addHandler(window,"load",function (event) {
+//     var list = document.getElementById("myList");
+//     EventUtil.addHandler(document,"DOMSubtreeModified",function (event) {
+//         console.log(event.type);
+//         console.log(event.target);
+//     });
+//     EventUtil.addHandler(document,"DOMNodeRemoved",function (event) {
+//         console.log(event.type);
+//         console.log(event.target);
+//     });
+//     EventUtil.addHandler(list.firstChild,"DOMNodeRemovedFromDocument",function (event) {
+//         console.log(event.type);
+//         console.log(event.target);
+//     });
+//     list.parentNode.removeChild(list);
+// });
+
+/*
+* 13.4.7 HTML5事件
+*/
+//1.contextmenu事件
+// var myMenu = document.getElementById("myMenu");
+// EventUtil.addHandler(window,"load",function (event) {
+//     EventUtil.addHandler(window,"contextmenu",function (event) {
+//        var event = EventUtil.getEvent(event);
+//         event.preventDefault();
+//
+//         myMenu.style.left = event.clientX + "px";
+//         myMenu.style.top = event.clientY + "px";
+//         myMenu.style.visibility = "visible";
+//     });
+//     EventUtil.addHandler(window,"click",function (event) {
+//         myMenu.style.visibility = "hidden";
+//     });
+// });
+
+//2.beforeunload事件
+// EventUtil.addHandler(window,"beforeunload",function (event) {
+//    var event = EventUtil.getEvent(event);
+//     var message = "不要离开此页呀！亲";
+//     event.returnValue = message;
+//     return message;
+// });
+
+//3.DOMContentLoaded事件
+// EventUtil.addHandler(window,"load",function (event) {
+//     console.log("load事件");
+// });
+// EventUtil.addHandler(window,"DOMContentLoaded",function (event) {
+//    console.log("DOMContentLoaded事件");
+// });
+
+//4.readystatechange事件
+//
+
+//5.pageshow和pagehide事件
+//仅限于Firefox和Opera
+
+//6.hashchange事件
+// EventUtil.addHandler(window,"hashchange",function (event) {
+//    console.log("oldUrl:" + event.oldURL);
+//     console.log("newUrl:" + event.newURL);
+//     console.log("current hash:" + location.hash);
+// });
+
+//13.4.8 设备事件
+
+//13.4.9 触摸与手势事件
+
+/*
+* 13.5 内存和性能
+*/
+//13.5.1 事件委托
+// var list = document.getElementById("myLinks");
+// EventUtil.addHandler(list,"click",function (event) {
+//    var event = EventUtil.getEvent(event);
+//     var target = EventUtil.getTarget(event);
+//     switch (target.id){
+//         case "goSomewhere":
+//             console.log("go to Beijing!");
+//             break;
+//         case "doSomething":
+//             console.log("homework!");
+//             break;
+//         case "sayHi":
+//             console.log("hi");
+//             break;
+//     }
+// });
+
+//13.5.2 移除事件处理程序
+//1.模拟鼠标事件
+var btn = document.getElementById("myBtn1");
+var event = document.createEvent("MouseEvents");
+event.initMouseEvent("click",true,true,document.defaultView,0,0,0,0,0,false,false,false,false,0,null);
+btn.dispatchEvent(event);
+
+//2.模拟键盘事件
+
