@@ -162,3 +162,132 @@
 //         event.preventDefault();
 //     }
 // });
+
+/*
+* 14.2.3 自动切换焦点
+*/
+// (function () {
+//     function tabForward(event) {
+//         event = EventUtil.getEvent(event);
+//         var target = EventUtil.getTarget(event);
+//         if(target.value.length == target.maxLength ){
+//             var form = target.form;
+//             for(var i = 0,len = form.elements.length;i < len;i++){
+//                 if(form.elements[i] == target){
+//                     if(form.elements[i+1]){
+//                         form.elements[i+1].focus();
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     var textbox1 = document.getElementById("txtTel1");
+//     var textbox2 = document.getElementById("txtTel2");
+//     var textbox3 = document.getElementById("txtTel3");
+//     EventUtil.addHandler(textbox1,"keyup",tabForward);
+//     EventUtil.addHandler(textbox2,"keyup",tabForward);
+//     EventUtil.addHandler(textbox3,"keyup",tabForward);
+// })();
+
+/*
+* 14.2.4 HTML5约束验证API
+*/
+//验证是否支持required属性
+// var isRequiredSupported = "required" in document.createElement("input");
+// console.log(isRequiredSupported);
+
+//输入模式
+// var textbox = document.forms["myForm"].elements["tel"];
+// EventUtil.addHandler(textbox,"keyup",function (event) {
+//     console.log(textbox.validity)
+// });
+
+/*
+* 14.3 选择框脚本
+*/
+// var select = document.forms["myForm"].elements["staff"];
+// console.log(select.options[0].text);
+// console.log(select.options[0].value);
+
+//14.3.1 选择选项
+// var select = document.forms["myForm"].elements["staff"];
+// EventUtil.addHandler(select,"change",function (event) {
+//     var event = EventUtil.getEvent(event);
+//     var selectIndex = select.selectedIndex;
+//     var selectValue = select.options[selectIndex].value;
+//     var selectText = select.options[selectIndex].text;
+//     console.log("您选择了" + selectText);
+// });
+
+// function getSelectedOptions(select){
+//     var result = new Array();
+//     var len = select.length;
+//     for(var i = 0;i < len;i++){
+//         if(select.options[i].selected){
+//             result.push(select.options[i]);
+//         }
+//     }
+//     return result;
+// }
+// var select = document.forms["myForm"].elements["staff"];
+// EventUtil.addHandler(select,"change",function (event) {
+//     var selectedOptions = getSelectedOptions(select);
+//     console.log("您选择了" + selectedOptions.length + "个成员：");
+//     for(var i = 0;i < selectedOptions.length;i++){
+//         console.log(selectedOptions[i].text);
+//     }
+// });
+
+//14.3.2 添加选项
+//有三种方式
+// var select = document.forms["myForm"].elements["staff"];
+// var newOption = document.createElement("option");
+// newOption.appendChild(document.createTextNode("Option text"));
+// newOption.setAttribute("value","Option value");
+// select.appendChild(newOption);
+
+// var newOption = new Option("Option text","Option value");
+// select.appendChild(newOption);
+
+// var newOption = new Option("Option text","Option value");
+// select.add(newOption,undefined);
+
+//14.3.3 移除选项
+// select.removeChild(select.options[0]);
+
+// select.remove(0);
+
+// select.options[0] = null;
+
+//移除所有的选项
+// function clearSelectbox(selectbox) {
+//     for(var i = 0,len = selectbox.options.length;i < len;len--){
+//         selectbox.remove(i);
+//     }
+// }
+// clearSelectbox(select);
+
+//14.3.4 移动和重排序选项
+// var select1 = document.forms["myForm"].elements["staff"];
+// var select2 = document.forms["myForm"].elements["num"];
+// select2.insertBefore(select1.options[0],select2.options[0]);
+
+/*
+* 14.4 表单序列化
+*/
+
+/*
+* 14.5 富文本编辑
+*/
+EventUtil.addHandler(window,"load",function (event) {
+    frames["richedit"].document.designMode = "on";
+});
+
+var operation = document.getElementById("operation");
+var test = document.getElementById("test");
+EventUtil.addHandler(operation,"click",function (event) {
+    document.execCommand("forecolor",false,"#12b4a4");
+});
+EventUtil.addHandler(test,"click",function (event) {
+    console.log(document.queryCommandValue("forecolor"));
+});

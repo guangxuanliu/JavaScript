@@ -10,7 +10,7 @@
 </p>
 <form id="form1" name="myForm">
     <input type="hidden" >
-    <input type="text" name="tel" >
+    <input type="number" name="tel" pattern="\d+" novalidate>
     <div>
         <label>定义提交按钮的三种方法</label>
         <p><input type="submit" value="提交" ></p>
@@ -22,19 +22,21 @@
         <p><input type="reset" value="重置"></p>
         <p><button type="reset">重置</button></p>
     </div>
-    <select multiple >
-        <option>刘光轩</option>
-        <option>李乐</option>
-        <option>薛玲玉</option>
-        <option>张怀圳</option>
-        <option>刘光轩</option>
-        <option>李乐</option>
-        <option>薛玲玉</option>
-        <option>张怀圳</option>
-        <option>刘光轩</option>
-        <option>李乐</option>
-        <option>薛玲玉</option>
-        <option>张怀圳</option>
+    <select name="staff">
+        <option value="liu">刘光轩</option>
+        <option value="li">李乐</option>
+        <option value="xue">薛玲玉</option>
+        <option value="zhang">张怀圳</option>
+        <option value="feng">冯凯</option>
+        <option value="teng">滕晓宁</option>
+        <option value="guo">国玲</option>
+        <option value="张">张浩然</option>
+    </select>
+    <select name="num">
+        <option value="one">1</option>
+        <option value="two">2</option>
+        <option value="three">3</option>
+        <option value="four">4</option>
     </select>
     <p>
         <label>
@@ -46,10 +48,28 @@
         <label>测试一下textarea：</label>
         <textarea>测试一下</textarea>
     </p>
+    <p>
+        <label>请输入电话号码：</label>
+        <input type="text" name="tel1" id="txtTel1" maxlength="3">
+        <input type="text" name="tel2" id="txtTel2" maxlength="3">
+        <input type="text" name="tel3" id="txtTel3" maxlength="3">
+    </p>
+
 </form>
+<p>
+    <label>这里是个iframe：</label>
+    <iframe src="blank.html" name="richedit" style="width: 100px;height: 100px;"></iframe>
+</p>
+<p>
+    <label>这里是个div</label>
+    <div style="width: 100px;height: 100px;border: 1px solid #ddd;" contenteditable="true"></div>
+<button type="button" id="operation">设置</button>
+<button type="button" id="test">检测</button>
+</p>
 
 <!--引入EventUtil对象-->
 <script src="../Scripts/EventUtil.js"></script>
 <script src="../Scripts/Class14.js"></script>
+
 </body>
 </html>
