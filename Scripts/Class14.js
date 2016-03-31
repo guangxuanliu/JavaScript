@@ -64,31 +64,101 @@
 // });
 
 //3.共有的表单字段事件
-var textbox = document.forms[0].elements["tel"];
-EventUtil.addHandler(textbox,"focus",function (event) {
-    var event = EventUtil.getEvent(event);
-    var target = EventUtil.getTarget(event);
-    if(target.style.backgroundColor != "red"){
-        target.style.backgroundColor = "yellow";
-    }
-});
-EventUtil.addHandler(textbox,"blur",function (event) {
-    var event = EventUtil.getEvent(event);
-    var target = EventUtil.getTarget(event);
-    if(/[^\d]/.test(target.value)){
-        target.style.backgroundColor = "red";
-    }
-    else {
-        target.style.backgroundColor = "";
-    }
-});
-EventUtil.addHandler(textbox,"change",function (event) {
-    var event = EventUtil.getEvent(event);
-    var target = EventUtil.getTarget(event);
-    if(/[^\d]/.test(target.value)){
-        target.style.backgroundColor = "red";
-    }
-    else {
-        target.style.backgroundColor = "";
-    }
-});
+// var textbox = document.forms[0].elements["tel"];
+// EventUtil.addHandler(textbox,"focus",function (event) {
+//     var event = EventUtil.getEvent(event);
+//     var target = EventUtil.getTarget(event);
+//     if(target.style.backgroundColor != "red"){
+//         target.style.backgroundColor = "yellow";
+//     }
+// });
+// EventUtil.addHandler(textbox,"blur",function (event) {
+//     var event = EventUtil.getEvent(event);
+//     var target = EventUtil.getTarget(event);
+//     if(/[^\d]/.test(target.value)){
+//         target.style.backgroundColor = "red";
+//     }
+//     else {
+//         target.style.backgroundColor = "";
+//     }
+// });
+// EventUtil.addHandler(textbox,"change",function (event) {
+//     var event = EventUtil.getEvent(event);
+//     var target = EventUtil.getTarget(event);
+//     if(/[^\d]/.test(target.value)){
+//         target.style.backgroundColor = "red";
+//     }
+//     else {
+//         target.style.backgroundColor = "";
+//     }
+// });
+
+/*
+* 14.2 文本框脚本
+*/
+// var input = document.forms["myForm"].elements["input1"];
+// console.log(input.value);
+// input.value ="这是个input输入框";
+
+//14.2.1 选择文本
+//获取焦点时选择文本
+// var textbox = document.forms["myForm"].elements["input1"];
+// EventUtil.addHandler(textbox,"focus",function (event) {
+//     var event = EventUtil.getEvent(event);
+//     var target = EventUtil.getTarget(event);
+//     textbox.select();
+// });
+
+//选择事件
+// var textbox = document.forms["myForm"].elements["input1"];
+// EventUtil.addHandler(textbox,"select",function (event) {
+//     console.log(getSelectedText(textbox));
+// });
+// //取得选择的文本
+// function getSelectedText(textbox) {
+//     if(typeof textbox.selectionStart == "number"){
+//         return textbox.value.substring(textbox.selectionStart,textbox.selectionEnd);
+//     }
+//     else if(document.selection){
+//         return document.selection.createRange().text;
+//     }
+// }
+
+//选择部分文本
+// var textbox = document.forms["myForm"].elements["input1"];
+// textbox.setSelectionRange(1,textbox.value.length -1);
+
+//跨浏览器的选择部分文本
+// function selectText(textbox,startIndex,stopIndex) {
+//     if(textbox.setSelectionRange){
+//         textbox.setSelectionRange(startIndex,stopIndex);
+//     }
+//     else if(textbox.createTextRange){
+//         var range = textbox.createTextRange();
+//         range.collapse(true);
+//         range.moveStart("character",startIndex);
+//         range.moveEnd("character",stopIndex);
+//         range.select();
+//     }
+//     textbox.focus();
+// }
+// var textbox = document.forms["myForm"].elements["input1"];
+// selectText(textbox,1,2);
+
+//14.2.2 过滤输入
+// 屏蔽字符
+// var textbox = document.forms["myForm"].elements["input1"];
+// EventUtil.addHandler(textbox,"keypress",function (event) {
+//     var event = EventUtil.getEvent(event);
+//     var charCode = EventUtil.getCharCode(event);
+//     if(!/\d/.test(String.fromCharCode(charCode)) && charCode > 9 && !event.ctrlKey ){
+//         event.preventDefault();
+//     }
+// });
+// EventUtil.addHandler(textbox,"paste",function (event) {
+//     var event = EventUtil.getEvent(event);
+//     var text = EventUtil.getClipboardText(event);
+//     if (!/^\d*$/.test(text)){
+//         event.preventDefault();
+//     }
+// });
