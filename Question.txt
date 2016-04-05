@@ -15,7 +15,7 @@
 15.mouseenter、mouseleave、mouseover、mouseout事件的区别
 16.keycode、charcode的区别
 17.WebGL的内容暂时忽略
-18.
+18.第16章的16.2.4 dropEffect 与 effectAllowed没看明白
 19.
 20.
 21.

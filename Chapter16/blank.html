@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>内页</title>
+</head>
+<body>
+这是一个内页
+<script src="../Scripts/EventUtil.js"></script>
+</body>
+</html>
+
+<script>
+    EventUtil.addHandler(window,"message",function (event) {
+        if(event.origin == "http://localhost:63342"){
+            console.log(JSON.parse(event.data));
+            event.source.postMessage("Received!","*");
+        }
+    });
+</script>
