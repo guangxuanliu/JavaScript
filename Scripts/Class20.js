@@ -1,23 +1,27 @@
-/**
- * Created by 技术2 on 2016/4/7.
- */
 var book = {
     title : "Professional JavaScript",
-    authors :[
-        "Nicholas C. Zakas"
+    author :[
+        "Nicholas C.Zakas"
     ],
-    edition : "3",
-    year : 2011,
-    releaseDate : new Date(2011,11,1)
+    edition : 3,
+    years : 2011,
+    toJSON : function () {
+        return this.title;
+    }
 };
 var jsonText = JSON.stringify(book);
-var bookCopy = JSON.parse(jsonText,function (key,value) {
-    if(key == "releaseDate"){
-        return new Date(value);
-    }
-    else {
-        return value;
-    }
-});
+var jsonCopy = JSON.stringify(book,null,4);
+var jsonCopy2 = JSON.stringify(book,function (key, value) {
+   switch (key){
+       case "author":
+           return "Liu Guangxuan";
+       case "years":
+           return 2017;
+       default:
+           return value;
+   }
+},4);
 console.log(book);
-console.log(bookCopy);
+console.log(jsonText);
+console.log(jsonCopy);
+console.log(jsonCopy2);
